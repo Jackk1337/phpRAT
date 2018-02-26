@@ -9,7 +9,7 @@ if (isset($_GET['new'])) {
     $processor = mysqli_real_escape_string($connect, $_GET['processor']);
     $gpu = mysqli_real_escape_string($connect, $_GET['gpu']);
 
-    $sql = "INSERT INTO clients (hostname, ipaddress, guid, os, ram, processor, gpu, online) VALUES ('$hostname', '$ipaddress', '$guid', '$os', '$ram', '$gpu', '$processor', '1')";
+    $sql = "INSERT INTO clients (hostname, ipaddress, guid, os, ram, gpu, processor, online) VALUES ('$hostname', '$ipaddress', '$guid', '$os', '$ram', '$gpu', '$processor', '1')";
     $query = mysqli_query($connect, $sql);
     echo mysqli_error($connect);
 }   

